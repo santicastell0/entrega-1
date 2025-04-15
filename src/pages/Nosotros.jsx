@@ -1,6 +1,14 @@
-function Nosotros() {
+const Nosotros = () => {
   return (
-    <div>Nosotros</div>
+    <div style={{ height: '100vh' }}>
+      <iframe
+        src="https://vmc.com.ar/nosotros/"
+        title="Nosotros"
+        width="100%"
+        height="100%"
+        style={{ border: 'none' }}
+      ></iframe>
+    </div>
   )
 }
 

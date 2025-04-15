@@ -1,24 +1,22 @@
-import { ItemListContainer } from "./componentes/ItemListContainer/ItemListContainer"
-import NavBar from "./componentes/NavBar/NavBar"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NavBar from './componentes/NavBar/NavBar'
+import { ItemListContainer } from './componentes/ItemListContainer/ItemListContainer'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Nosotros from './pages/Nosotros'
 
 function App() {
-
-  const Msj =(props) => {
-    const { saludo } = props
-    return (
-      <h1>{props.saludo}</h1>
-    )
-  }
-
   return (
-  <>
-    <NavBar/>
-    <ItemListContainer/>
-    <Msj saludo="Proyecto React"/>
-  </>
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<ItemListContainer />} />
+        <Route path="/categoria/:categoriaId" element={<ItemListContainer />} />
+        <Route path="/item/:itemId" element={<h2>Detalle del producto</h2>} />
+        <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
+        <Route path="/nosotros" element={<Nosotros />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-
 
 export default App
