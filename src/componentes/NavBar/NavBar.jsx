@@ -33,9 +33,7 @@ function NavBar() {
                 Biogás y Eco VMC
               </NavDropdown.Item>
             </NavDropdown>
-
             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
-            <Nav.Link href="#about">Contactos</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

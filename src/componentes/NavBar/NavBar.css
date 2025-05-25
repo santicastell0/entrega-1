@@ -1,33 +1,30 @@
-/* Asegura que el navbar use flexbox correctamente */
 .custom-navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(54, 51, 45) !important;
-    padding: 10px;
-    border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(54, 51, 45);
+  padding: 10px;
+  border-bottom: 2px solid #222;
 }
 
-/* Asegurar que el logo y el nombre queden pegados a la izquierda */
 .navbar-brand {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: white !important;
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-left: 0 !important; /* Eliminar margen izquierdo */
-    padding-left: 0 !important;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: white !important;
 }
 
+.imglogo {
+  width: 40px;
+  margin-right: 10px;
+}
 
-/* Asegurar que los links estén a la derecha */
 .navbar-collapse {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .nav-link {
-    color: white !important;
-    font-size: 18px;
-    margin: 10px;
+  color: white !important;
+  font-size: 18px;
+  margin: 0 10px;
 }

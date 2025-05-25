@@ -1,41 +1,48 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { getProductos } from '../../mockProductos'
-import ItemList from '../ItemList/ItemList'
-import './ItemListContainer.css'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
+import ItemList from "../ItemList/ItemList";
 
-export const ItemListContainer = () => {
-  const [productos, setProductos] = useState([])
-  const { categoriaId } = useParams()
+const ItemListContainer = ({ mostrarBanner = false }) => {
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { categoriaId } = useParams();
 
   useEffect(() => {
-    getProductos().then(data => {
-      if (categoriaId) {
-        setProductos(data.filter(p => p.categoria === categoriaId))
-      } else {
-        setProductos(data)
-      }
-    })
-  }, [categoriaId])
+    setLoading(true);
+
+    const productosRef = collection(db, 'productos');
+
+    const q = categoriaId
+      ? query(productosRef, where('categoria', '==', categoriaId))
+      : productosRef;
+
+    getDocs(q)
+      .then((resp) => {
+        const items = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setProductos(items);
+      })
+      .catch(error => {
+        console.error("Error al cargar productos:", error);
+      })
+      .finally(() => setLoading(false));
+  }, [categoriaId]);
 
   return (
-    <div className="container-fluid p-0">
-      {!categoriaId && (
-        <div className="banner-container">
-          <img
-            src="/Portada/banner.webp"
-            alt="Imagen de portada"
-            className="banner-img"
-          />
-          <div className="banner-overlay">
-            <h1>Bienvenido a VMC Refrigeración</h1>
-          </div>
-        </div>
+    <div>
+      {mostrarBanner && (
+        <img
+          src="/Portada/banner.webp"
+          alt="Portada VMC"
+          className="banner-img"
+          style={{ width: "100%", height: "auto" }}
+        />
       )}
 
-      <div className="container mt-4">
-        <ItemList productos={productos} />
-      </div>
+      {loading ? <p>Cargando productos...</p> : <ItemList productos={productos} />}
     </div>
-  )
-}
+  );
+};
+
+export default ItemListContainer;
